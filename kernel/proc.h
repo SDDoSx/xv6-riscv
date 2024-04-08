@@ -105,3 +105,5 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 };
+
+uint64 myV2p(pde_t *pgdir, uint64 va);

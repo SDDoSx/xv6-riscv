@@ -89,3 +89,21 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// sys_myV2p
+uint64 sys_myV2p(void) {
+    uint64 va;
+
+    // Just call argaddr without checking its return value
+    argaddr(0, &va);
+
+    // Now, va should have the value passed by the user.
+    // You can then continue with your logic.
+    struct proc *p = myproc();
+    if (p == 0 || p->pagetable == 0) {
+        return -1; // Or another suitable error value
+    }
+
+    return myV2p(p->pagetable, va);
+}
+

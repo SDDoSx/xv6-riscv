@@ -681,3 +681,17 @@ procdump(void)
     printf("\n");
   }
 }
+
+
+//myV2p
+
+uint64 myV2p(pde_t *pgdir, uint64 va) {
+  pte_t *pte = walk(pgdir, va, 0);
+  if(pte == 0)
+    return (uint64)-1;  // No page table entry found.
+  if((*pte & PTE_V) == 0)
+    return (uint64)-1;  // Page table entry not valid.
+  uint64 pa = PTE2PA(*pte);
+  uint64 offset = va & 0xFFF;
+  return pa | offset;
+}
